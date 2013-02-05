@@ -1,6 +1,6 @@
 {
   "name": "jot-twitter",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Adds a Twitter feed widget to the Jot rich content editor",
   "main": "index.js",
   "scripts": {
@@ -19,5 +19,7 @@
     "twitter"
   ],
   "author": "P'unk Avenue punkave.com",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+  }
 }
