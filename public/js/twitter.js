@@ -22,22 +22,17 @@ jot.widgetTypes.twitter = {
         self.$account.focus();
         self.$account.setSelection(0, 0);
       }, 500);
-      self.$el.find('.jot-preview-button').click(function() {
-        self.preview();
-        return false;
-      });
     };
 
     self.prePreview = getAccount;
     self.preSave = getAccount;
 
     function getAccount(callback) {
-      jot.log('prePreview');
       self.exists = !!self.$account.val();
       if (self.exists) {
         self.data.account = self.$account.val();
       }
-      callback();
+      return callback();
     }
 
     self.type = 'twitter';
