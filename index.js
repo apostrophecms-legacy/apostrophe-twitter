@@ -3,25 +3,25 @@ module.exports = function(options) {
 };
 
 function widget(options) {
-  var jot = options.jot;
+  var apos = options.apos;
   var app = options.app;
   var self = this;
   
   // This widget should be part of the default set of widgets for areas
   // (this isn't mandatory)
-  jot.defaultControls.push('twitter');
+  apos.defaultControls.push('twitter');
 
-  // Include our editor template in the markup when jotTemplates is called
-  jot.templates.push(__dirname + '/views/twitterEditor');
+  // Include our editor template in the markup when aposTemplates is called
+  apos.templates.push(__dirname + '/views/twitterEditor');
 
-  // Make sure that jotScripts and jotStylesheets summon our assets
-  jot.scripts.push('/jot-twitter/js/twitter.js');
-  jot.stylesheets.push('/jot-twitter/css/twitter.css');
+  // Make sure that aposScripts and aposStylesheets summon our assets
+  apos.scripts.push('/apos-twitter/js/twitter.js');
+  apos.stylesheets.push('/apos-twitter/css/twitter.css');
 
   // Serve our assets
-  app.get('/jot-twitter/*', jot.static(__dirname + '/public'));
+  app.get('/apos-twitter/*', apos.static(__dirname + '/public'));
 
-  jot.itemTypes.twitter = {
+  apos.itemTypes.twitter = {
     widget: true,
     label: 'Twitter',
     css: 'twitter',
@@ -30,7 +30,7 @@ function widget(options) {
       item.account = matches[0];
     },
     render: function(data) {
-      return jot.partial('twitter.html', data, __dirname + '/views');
+      return apos.partial('twitter.html', data, __dirname + '/views');
     }
   };
 }

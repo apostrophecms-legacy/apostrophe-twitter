@@ -1,4 +1,4 @@
-jot.widgetTypes.twitter = {
+apos.widgetTypes.twitter = {
   label: 'Twitter',
   editor: function(options) {
     var self = this;
@@ -16,7 +16,7 @@ jot.widgetTypes.twitter = {
       if (self.exists) {
         self.account = self.$widget.attr('data-account');
       }
-      self.$account = self.$el.find('.jot-twitter-account');
+      self.$account = self.$el.find('.apos-twitter-account');
       self.$account.val(self.account);
       setTimeout(function() {
         self.$account.focus();
@@ -36,10 +36,10 @@ jot.widgetTypes.twitter = {
     }
 
     self.type = 'twitter';
-    options.template = '.jot-twitter-editor';
+    options.template = '.apos-twitter-editor';
 
     // Parent class constructor shared by all widget editors
-    jot.widgetEditor.call(self, options);
+    apos.widgetEditor.call(self, options);
   },
 };
 
@@ -48,7 +48,7 @@ jot.widgetTypes.twitter = {
 // edit tends to sneak into sites so much that we might not bother
 // with the distinction much in practice
 
-jot.widgetPlayers.twitter = function($widget) {
+apos.widgetPlayers.twitter = function($widget) {
   var account = $widget.attr('data-account');
   $.getJSON(
     // Note the trailing ? is significant. It tells jQuery to automatically
@@ -57,15 +57,15 @@ jot.widgetPlayers.twitter = function($widget) {
     // security error
     'https://api.twitter.com/1/statuses/user_timeline.json?screen_name=' + account + '&count=5&callback=?',
     function(tweets) {
-      var $tweets = $widget.find('.jot-tweets');
-      jot.log(tweets);
+      var $tweets = $widget.find('.apos-tweets');
+      apos.log(tweets);
       if (!tweets.length) {
         return;
       }
-      $tweets.find('.jot-tweet:not(.jot-template)').remove();
+      $tweets.find('.apos-tweet:not(.apos-template)').remove();
       _.each(tweets, function(tweet) {
         var text = tweet.text;
-        var $li = $tweets.find('.jot-tweet.jot-template').clone();
+        var $li = $tweets.find('.apos-tweet.apos-template').clone();
         var when = new Date(tweet.created_at);
         var month = when.getMonth();
         if (month < 10) {
@@ -76,14 +76,14 @@ jot.widgetPlayers.twitter = function($widget) {
           day = '0' + day;
         }
         var when = '<a href="http://twitter.com/' + account + '/status/' + tweet.id_str + '">' + month + '/' + day + '</a>';
-        $li.find('.jot-tweet-date').html(when);
+        $li.find('.apos-tweet-date').html(when);
         // Linkify URLs
         var text = tweet.text;
         text = text.replace(/(https?\:\/\/[^ ]\S+)/g, '<a href="$1">$1</a>'); 
         // Tweets are pre-escaped for some reason in the JSON responses
-        $li.find('.jot-tweet-text').html(text);
-        $li.removeClass('jot-template');
-        jot.log($li);
+        $li.find('.apos-tweet-text').html(text);
+        $li.removeClass('apos-template');
+        apos.log($li);
         $tweets.append($li);
       });
     }

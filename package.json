@@ -1,16 +1,17 @@
 {
-  "name": "jot-twitter",
+  "name": "apostrophe-twitter",
   "version": "0.0.1",
-  "description": "Adds a Twitter feed widget to the Jot rich content editor",
+  "description": "Adds a Twitter feed widget to Apostrophe's rich content editor",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/punkave/jot-twitter.git"
+    "url": "git://github.com/punkave/apostrophe-twitter.git"
   },
   "keywords": [
+    "apostrophe",
     "jot",
     "rich",
     "text",

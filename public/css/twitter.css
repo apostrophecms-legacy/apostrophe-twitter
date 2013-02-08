@@ -1,24 +1,24 @@
 /* Note heavy use of ems to make it easier to scale these down for preview */
 
-.jot-widget.jot-twitter
+.apos-widget.apos-twitter
 {
   background-color: #eef;
   text-align: left;
 }
 
-.jot-tweets-header
+.apos-tweets-header
 {
   text-align: center;
   font-weight: bold;
 }
 
-.jot-tweets
+.apos-tweets
 {
   list-style: none;
   margin: 0px;
 }
 
-.jot-tweet
+.apos-tweet
 {
   background-color: #eee;
   border-radius: 0.6em;
@@ -27,7 +27,7 @@
   padding: 0.4em;
 }
 
-.jot-tweet-date
+.apos-tweet-date
 {
   text-align: center;
   float: right;
