@@ -1,5 +1,5 @@
 module.exports = function(options) {
-  new widget(options);
+  return new widget(options);
 };
 
 function widget(options) {
