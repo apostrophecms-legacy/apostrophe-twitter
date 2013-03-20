@@ -6,17 +6,21 @@ function widget(options) {
   var apos = options.apos;
   var app = options.app;
   var self = this;
-  
+
+  self.pushAsset = function(type, name) {
+    return apos.pushAsset(type, name, __dirname, '/apos-twitter');
+  };
+
   // This widget should be part of the default set of widgets for areas
   // (this isn't mandatory)
   apos.defaultControls.push('twitter');
 
   // Include our editor template in the markup when aposTemplates is called
-  apos.templates.push(__dirname + '/views/twitterEditor');
+  self.pushAsset('template', 'twitterEditor');
 
   // Make sure that aposScripts and aposStylesheets summon our assets
-  apos.scripts.push('/apos-twitter/js/twitter.js');
-  apos.stylesheets.push('/apos-twitter/css/twitter.css');
+  self.pushAsset('script', 'twitter');
+  self.pushAsset('stylesheet', 'twitter');
 
   // Serve our assets
   app.get('/apos-twitter/*', apos.static(__dirname + '/public'));
@@ -30,7 +34,7 @@ function widget(options) {
       item.account = matches[0];
     },
     render: function(data) {
-      return apos.partial('twitter.html', data, __dirname + '/views');
+      return apos.partial('twitter', data, __dirname + '/views');
     }
   };
 }
