@@ -29,6 +29,7 @@ function widget(options) {
     widget: true,
     label: 'Twitter',
     css: 'twitter',
+    icon: 'twitter-bird',
     sanitize: function(item) {
       var matches = item.account.match(/\w+/);
       item.account = matches[0];
