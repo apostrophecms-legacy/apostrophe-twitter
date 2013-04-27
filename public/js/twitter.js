@@ -3,8 +3,6 @@ apos.widgetTypes.twitter = {
   editor: function(options) {
     var self = this;
         
-    self.account = '';
-
     if (!options.messages) {
       options.messages = {};
     }
@@ -13,11 +11,8 @@ apos.widgetTypes.twitter = {
     }
 
     self.afterCreatingEl = function() {
-      if (self.exists) {
-        self.account = self.$widget.attr('data-account');
-      }
       self.$account = self.$el.find('.apos-twitter-account');
-      self.$account.val(self.account);
+      self.$account.val(self.data.account);
       setTimeout(function() {
         self.$account.focus();
         self.$account.setSelection(0, 0);
