@@ -6,6 +6,7 @@ function widget(options) {
   var apos = options.apos;
   var app = options.app;
   var self = this;
+  self._dirs = (options.dirs || []).concat([ __dirname ]);
 
   self.pushAsset = function(type, name) {
     return apos.pushAsset(type, name, __dirname, '/apos-twitter');
@@ -35,7 +36,8 @@ function widget(options) {
       item.account = matches[0];
     },
     render: function(data) {
-      return apos.partial('twitter', data, __dirname + '/views');
+      // return apos.partial('twitter', data, __dirname + '/views');
+      return apos.partial('twitter', data, self._dirs.map(function(dir) { return dir + '/views'; }) );
     }
   };
 }

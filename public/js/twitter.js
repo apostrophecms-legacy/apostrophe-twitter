@@ -71,7 +71,7 @@ apos.widgetPlayers.twitter = function($widget) {
           day = '0' + day;
         }
         var when = '<a href="http://twitter.com/' + account + '/status/' + tweet.id_str + '">' + month + '/' + day + '</a>';
-        $li.find('.apos-tweet-date').html(when);
+        $li.find('.apos-tweet-date').append(when);
         // Linkify URLs
         var text = tweet.text;
         text = text.replace(/(https?\:\/\/[^ ]\S+)/g, '<a href="$1">$1</a>'); 
