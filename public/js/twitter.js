@@ -53,7 +53,6 @@ apos.widgetPlayers.twitter = function($widget) {
     'https://api.twitter.com/1/statuses/user_timeline.json?screen_name=' + account + '&count=5&callback=?',
     function(tweets) {
       var $tweets = $widget.find('.apos-tweets');
-      apos.log(tweets);
       if (!tweets.length) {
         return;
       }
@@ -78,7 +77,6 @@ apos.widgetPlayers.twitter = function($widget) {
         // Tweets are pre-escaped for some reason in the JSON responses
         $li.find('.apos-tweet-text').html(text);
         $li.removeClass('apos-template');
-        apos.log($li);
         $tweets.append($li);
       });
     }
