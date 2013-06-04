@@ -1,3 +1,5 @@
+var extend = require('extend');
+
 module.exports = function(options) {
   return new widget(options);
 };
@@ -8,8 +10,12 @@ function widget(options) {
   var self = this;
   self._dirs = (options.dirs || []).concat([ __dirname ]);
 
-  self.pushAsset = function(type, name) {
-    return apos.pushAsset(type, name, __dirname, '/apos-twitter');
+  self.pushAsset = function(type, name, optionsArg) {
+    var options = {};
+    extend(true, options, optionsArg);
+    options.fs = __dirname;
+    options.web = '/apos-twitter';
+    return apos.pushAsset(type, name, options);
   };
 
   // This widget should be part of the default set of widgets for areas
@@ -17,11 +23,12 @@ function widget(options) {
   apos.defaultControls.push('twitter');
 
   // Include our editor template in the markup when aposTemplates is called
-  self.pushAsset('template', 'twitterEditor');
+  self.pushAsset('template', 'twitterEditor', { when: 'user' });
 
   // Make sure that aposScripts and aposStylesheets summon our assets
-  self.pushAsset('script', 'twitter');
-  self.pushAsset('stylesheet', 'twitter');
+  self.pushAsset('script', 'content', { when: 'always' });
+  self.pushAsset('script', 'editor', { when: 'user' });
+  self.pushAsset('stylesheet', 'content', { when: 'always' });
 
   // Serve our assets
   app.get('/apos-twitter/*', apos.static(__dirname + '/public'));
