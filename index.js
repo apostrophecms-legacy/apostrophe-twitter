@@ -1,4 +1,6 @@
 var extend = require('extend');
+var mtwitter = require('mtwitter');
+var _ = require('underscore');
 
 module.exports = function(options) {
   return new widget(options);
@@ -7,6 +9,17 @@ module.exports = function(options) {
 function widget(options) {
   var apos = options.apos;
   var app = options.app;
+  var consumerKey = options.consumerKey;
+  var consumerSecret = options.consumerSecret;
+  var accessToken = options.accessToken;
+  var accessTokenSecret = options.accessTokenSecret;
+
+  // How long to cache the feed, in seconds. Twitter's API rate limit is
+  // rather generous at 300 requests per 15 minutes. We shouldn't get anywhere
+  // near that, we'd make 30 requests. However with clustering we would have
+  // separate caches and this might start to look like the right setting.
+
+  var cacheLifetime = options.cacheLifetime || 30;
   var self = this;
   self._dirs = (options.dirs || []).concat([ __dirname ]);
 
@@ -29,6 +42,37 @@ function widget(options) {
   self.pushAsset('script', 'content', { when: 'always' });
   self.pushAsset('script', 'editor', { when: 'user' });
   self.pushAsset('stylesheet', 'content', { when: 'always' });
+
+  // Serve our feeds. Be sure to cache them so we don't hit the rate limit.
+  // TODO: consider using the streaming API for faster updates without hitting
+  // the rate limit.
+
+  var tweetCache = {};
+
+  app.get('/apos-twitter/feed/:username', function(req, res) {
+    var username = req.params.username;
+    if (!username.length) {
+      res.statusCode = 404;
+      return res.send('not found');
+    }
+    if (_.has(tweetCache, username)) {
+      var cache = tweetCache[username];
+      var now = (new Date()).getTime();
+      if (now - cache.when > cacheLifetime * 1000) {
+        delete tweetCache[username];
+      } else {
+        return res.send(cache.results);
+      }
+    }
+    var reader = new mtwitter({ consumer_key: consumerKey, consumer_secret: consumerSecret, application_only: true });
+    return reader.get('/statuses/user_timeline.json', { screen_name: username }, function(err, results) {
+      if (err) {
+        results = [];
+      }
+      tweetCache[username] = { when: (new Date()).getTime(), results: results };
+      return res.send(results);
+    });
+  });
 
   // Serve our assets
   app.get('/apos-twitter/*', apos.static(__dirname + '/public'));
