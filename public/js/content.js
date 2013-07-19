@@ -20,8 +20,9 @@ apos.widgetPlayers.twitter = function($widget) {
       _.each(tweets, function(tweet) {
         var text = tweet.text;
         var $li = $tweets.find('.apos-tweet.apos-template').clone();
-        var when = new Date(tweet.created_at);
-        var month = when.getMonth();
+        var when = parseTwitterDate(tweet.created_at);
+        // Months start at zero for use in arrays.
+        var month = when.getMonth() + 1;
         if (month < 10) {
           month = '0' + month;
         }
@@ -29,11 +30,10 @@ apos.widgetPlayers.twitter = function($widget) {
         if (day < 10) {
           day = '0' + day;
         }
-        var when = '<a href="http://twitter.com/' + account + '/status/' + tweet.id_str + '">' + month + '/' + day + '</a>';
+        when = '<a href="http://twitter.com/' + account + '/status/' + tweet.id_str + '">' + month + '/' + day + '</a>';
         $li.find('.apos-tweet-date').append(when);
         // Linkify URLs
-        var text = tweet.text;
-        text = text.replace(/(https?\:\/\/[^ ]\S+)/g, '<a href="$1">$1</a>'); 
+        text = text.replace(/(https?\:\/\/[^ ]\S+)/g, '<a href="$1">$1</a>');
         // Tweets are pre-escaped for some reason in the JSON responses
         $li.find('.apos-tweet-text').html(text);
         $li.removeClass('apos-template');
@@ -41,5 +41,13 @@ apos.widgetPlayers.twitter = function($widget) {
       });
     }
   );
+
+  // Per http://stackoverflow.com/questions/3243546/problem-with-javascript-date-function-in-ie-7-returns-nan
+  // Without this IE bombs
+  function parseTwitterDate(str) {
+    console.log(str);
+    var v = str.split(' ');
+    return new Date(Date.parse(v[1]+" "+v[2]+", "+v[5]+" "+v[3]+" UTC"));
+  }
 };
 

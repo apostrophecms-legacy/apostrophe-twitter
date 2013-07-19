@@ -1,6 +1,7 @@
 var extend = require('extend');
-var mtwitter = require('mtwitter');
+var twitter = require('simple-twitter');
 var _ = require('underscore');
+var qs = require('qs');
 
 module.exports = function(options) {
   return new widget(options);
@@ -64,8 +65,8 @@ function widget(options) {
         return res.send(cache.results);
       }
     }
-    var reader = new mtwitter({ consumer_key: consumerKey, consumer_secret: consumerSecret, application_only: true });
-    return reader.get('/statuses/user_timeline.json', { screen_name: username }, function(err, results) {
+    var reader = new twitter(consumerKey, consumerSecret, accessToken, accessTokenSecret);
+    return reader.get('statuses/user_timeline', '?' + qs.stringify({ screen_name: username }), function(err, results) {
       if (err) {
         results = [];
       }
