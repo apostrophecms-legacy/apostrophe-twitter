@@ -45,7 +45,6 @@ apos.widgetPlayers.twitter = function($widget) {
   // Per http://stackoverflow.com/questions/3243546/problem-with-javascript-date-function-in-ie-7-returns-nan
   // Without this IE bombs
   function parseTwitterDate(str) {
-    console.log(str);
     var v = str.split(' ');
     return new Date(Date.parse(v[1]+" "+v[2]+", "+v[5]+" "+v[3]+" UTC"));
   }
