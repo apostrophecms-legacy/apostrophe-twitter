@@ -4,7 +4,8 @@
 // with the distinction much in practice
 
 apos.widgetPlayers.twitter = function($widget) {
-  var account = $widget.attr('data-account');
+  var data = apos.getWidgetData($widget);
+  var account = data.account;
   $.getJSON(
     // Note the trailing ? is significant. It tells jQuery to automatically
     // create a JSONP callback function and obtain the result via a cross-domain
