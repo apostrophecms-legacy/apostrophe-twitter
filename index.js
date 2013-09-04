@@ -3,11 +3,13 @@ var twitter = require('simple-twitter');
 var _ = require('underscore');
 var qs = require('qs');
 
-module.exports = function(options) {
-  return new widget(options);
+module.exports = function(options, callback) {
+  return new Construct(options, callback);
 };
 
-function widget(options) {
+module.exports.Construct = Construct;
+
+function Construct(options, callback) {
   var apos = options.apos;
   var app = options.app;
   var consumerKey = options.consumerKey;
@@ -92,4 +94,6 @@ function widget(options) {
       return apos.partial('twitter', data, self._dirs.map(function(dir) { return dir + '/views'; }) );
     }
   };
+
+  return setImmediate(function() { return callback(null); });
 }
