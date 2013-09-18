@@ -68,7 +68,7 @@ function Construct(options, callback) {
       }
     }
     var reader = new twitter(consumerKey, consumerSecret, accessToken, accessTokenSecret);
-    return reader.get('statuses/user_timeline', '?' + qs.stringify({ screen_name: username }), function(err, results) {
+    return reader.get('statuses/user_timeline', '?' + qs.stringify({ screen_name: username, count: req.query.count || 5 }), function(err, results) {
       if (err) {
         results = [];
       }
@@ -85,6 +85,7 @@ function Construct(options, callback) {
     label: 'Twitter',
     css: 'twitter',
     icon: 'twitter-bird',
+    jsonOptions: [ 'limit' ],
     sanitize: function(item) {
       var matches = item.account.match(/\w+/);
       item.account = matches[0];

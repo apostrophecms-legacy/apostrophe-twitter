@@ -11,7 +11,7 @@ apos.widgetPlayers.twitter = function($widget) {
     // create a JSONP callback function and obtain the result via a cross-domain
     // script tag so we can talk to twitter in older browsers without a
     // security error
-    '/apos-twitter/feed/' + account + '?count=5',
+    '/apos-twitter/feed/' + account + '?count=' + (data.limit || 5),
     function(tweets) {
       var $tweets = $widget.find('.apos-tweets');
       if (!tweets.length) {
