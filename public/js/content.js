@@ -32,7 +32,16 @@ apos.widgetPlayers.twitter = function($widget) {
           day = '0' + day;
         }
         when = '<a href="http://twitter.com/' + account + '/status/' + tweet.id_str + '">' + month + '/' + day + '</a>';
-        $li.find('.apos-tweet-date').append(when);
+        $profileImage = $li.find('.apos-tweet-profile-image');
+        $date = $li.find('.apos-tweet-date');
+        $date.append(when);
+        var profileImage;
+        if (document.location.href.substr(0, 5) === 'https') {
+          profileImage = tweet.user.profile_image_url_https;
+        } else {
+          profileImage = tweet.user.profile_image_url;
+        }
+        $profileImage.css('background-image', 'url(' + profileImage + ')');
         // Linkify URLs
         text = text.replace(/(https?\:\/\/[^ ]\S+)/g, '<a href="$1">$1</a>');
         // Tweets are pre-escaped for some reason in the JSON responses

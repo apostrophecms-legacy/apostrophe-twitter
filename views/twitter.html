@@ -3,7 +3,13 @@
 <ul class="apos-tweets">
   {# Tweets are magicked here by the widget player in content.js, which #}
   {# clones the template tweet below as needed, removing the apos-template class #}
-  <li class="apos-tweet apos-template"><span class="apos-tweet-date"></span><span class="apos-tweet-text"></span></li>
+  <li class="apos-tweet apos-template">
+    <span class="apos-tweet-profile">
+      <span class="apos-tweet-profile-image"></span>
+      <span class="apos-tweet-date"></span>
+    </span>
+    <span class="apos-tweet-text"></span>
+  </li>
   {# In the main content editor we shouldn't modify the DOM dynamically with JS players, #}
   {# so just show some placeholder tweets. #}
   {% if options.editView %}

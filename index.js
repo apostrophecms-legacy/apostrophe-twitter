@@ -85,7 +85,7 @@ function Construct(options, callback) {
     label: 'Twitter',
     css: 'twitter',
     icon: 'twitter-bird',
-    jsonOptions: [ 'limit' ],
+    jsonOptions: [ 'limit', 'profile' ],
     sanitize: function(item) {
       var matches = item.account.match(/\w+/);
       item.account = matches[0];
