@@ -49,6 +49,7 @@ apos.widgetPlayers.twitter = function($widget) {
         $li.removeClass('apos-template');
         $tweets.append($li);
       });
+      $tweets.find('.apos-tweet.apos-template').remove();
     }
   );
 
