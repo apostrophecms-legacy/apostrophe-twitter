@@ -24,15 +24,9 @@ function Construct(options, callback) {
 
   var cacheLifetime = options.cacheLifetime || 30;
   var self = this;
-  self._dirs = (options.dirs || []).concat([ __dirname ]);
-
-  self.pushAsset = function(type, name, optionsArg) {
-    var options = {};
-    extend(true, options, optionsArg);
-    options.fs = __dirname;
-    options.web = '/apos-twitter';
-    return apos.pushAsset(type, name, options);
-  };
+  self._apos = apos;
+  self._app = app;
+  self._apos.mixinModuleAssets(self, 'twitter', __dirname, options);
 
   // This widget should be part of the default set of widgets for areas
   // (this isn't mandatory)
@@ -92,9 +86,11 @@ function Construct(options, callback) {
     },
     render: function(data) {
       // return apos.partial('twitter', data, __dirname + '/views');
-      return apos.partial('twitter', data, self._dirs.map(function(dir) { return dir + '/views'; }) );
+      return self.render('twitter', data);
     }
   };
 
+  self.serveAssets();
+  
   return setImmediate(function() { return callback(null); });
 }
