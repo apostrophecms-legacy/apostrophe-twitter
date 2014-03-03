@@ -28,21 +28,11 @@ Now it will be included in the default set of controls. If you are setting the `
 
 To insert it as a singleton, you might write:
 
-    {{ aposSingleton({
-      slug: page.slug + ':twitter',
-      area: page.areas.twitter,
-      type: 'twitter',
-      limit: 3
-    }) }}
+    {{ aposSingleton(page, 'twitter', 'twitter', { limit: 3 }) }}
 
 If you want the same feed to appear on many pages, you might use the `global` virtual page:
 
-  {{ aposSingleton({
-    slug: 'global:twitter',
-    area: global.areas.twitter,
-    type: 'twitter',
-    limit: 3
-  }) }}
+  {{ aposSingleton(global, 'twitter', 'twitter', { limit: 3 }) }}
 
 ## Options
 
