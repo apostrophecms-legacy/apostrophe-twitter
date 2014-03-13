@@ -90,7 +90,5 @@ function Construct(options, callback) {
     }
   };
 
-  self.serveAssets();
-  
   return setImmediate(function() { return callback(null); });
 }
