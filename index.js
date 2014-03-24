@@ -71,9 +71,6 @@ function Construct(options, callback) {
     });
   });
 
-  // Serve our assets
-  app.get('/apos-twitter/*', apos.static(__dirname + '/public'));
-
   apos.itemTypes.twitter = {
     widget: true,
     label: 'Twitter',
