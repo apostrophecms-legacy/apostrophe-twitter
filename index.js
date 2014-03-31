@@ -1,6 +1,6 @@
 var extend = require('extend');
 var twitter = require('simple-twitter');
-var _ = require('underscore');
+var _ = require('lodash');
 var qs = require('qs');
 
 module.exports = function(options, callback) {
