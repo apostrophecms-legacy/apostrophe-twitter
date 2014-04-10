@@ -20,6 +20,9 @@ function AposTwitterWidgetEditor(options) {
   self.afterCreatingEl = function() {
     self.$account = self.$el.find('.apos-twitter-account');
     self.$account.val(self.data.account);
+
+    self.$hashtag = self.$el.find('.apos-twitter-hashtag');
+    self.$hashtag.val(self.data.hashtag);
     setTimeout(function() {
       self.$account.focus();
       self.$account.setSelection(0, 0);
@@ -33,6 +36,7 @@ function AposTwitterWidgetEditor(options) {
     self.exists = !!self.$account.val();
     if (self.exists) {
       self.data.account = self.$account.val();
+      self.data.hashtag = self.$hashtag.val();
     }
     return callback();
   }

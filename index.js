@@ -45,28 +45,43 @@ function Construct(options, callback) {
   // the rate limit.
 
   var tweetCache = {};
+  var url;
 
-  app.get('/apos-twitter/feed/:username', function(req, res) {
-    var username = req.params.username;
+  app.get('/apos-twitter/feed', function(req, res) {
+    var username = req.query.username;
+    var hashtag = req.query.hashtag;
+
     if (!username.length) {
       res.statusCode = 404;
       return res.send('not found');
     }
-    if (_.has(tweetCache, username)) {
-      var cache = tweetCache[username];
+
+    if (!hashtag.length) {
+      url = 'statuses/user_timeline.json?' + qs.stringify({ screen_name: username, count: req.query.count || 5 });
+    } else {
+      url = 'search/tweets.json?' + qs.stringify({ q: 'from:' + username + ' #' + hashtag, count: req.query.count || 5 });
+    }
+
+    if (_.has(tweetCache, url)) {
+      var cache = tweetCache[url];
       var now = (new Date()).getTime();
       if (now - cache.when > cacheLifetime * 1000) {
-        delete tweetCache[username];
+        delete tweetCache[url];
       } else {
         return res.send(cache.results);
       }
     }
     var reader = new twitter(consumerKey, consumerSecret, accessToken, accessTokenSecret);
-    return reader.get('statuses/user_timeline', '?' + qs.stringify({ screen_name: username, count: req.query.count || 5 }), function(err, results) {
+
+    return reader.get(url, function(err, results) {
       if (err) {
-        results = [];
+        results = '[]';
       }
-      tweetCache[username] = { when: (new Date()).getTime(), results: results };
+      results = JSON.parse(results);
+      if (results.statuses) {
+        results = results.statuses;
+      }
+      tweetCache[url] = { when: (new Date()).getTime(), results: results };
       return res.send(results);
     });
   });
@@ -82,7 +97,6 @@ function Construct(options, callback) {
       item.account = matches[0];
     },
     render: function(data) {
-      // return apos.partial('twitter', data, __dirname + '/views');
       return self.render('twitter', data);
     }
   };

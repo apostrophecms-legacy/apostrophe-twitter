@@ -6,12 +6,19 @@
 apos.widgetPlayers.twitter = function($widget) {
   var data = apos.getWidgetData($widget);
   var account = data.account;
+  var hashtag = data.hashtag;
+
   $.getJSON(
     // Note the trailing ? is significant. It tells jQuery to automatically
     // create a JSONP callback function and obtain the result via a cross-domain
     // script tag so we can talk to twitter in older browsers without a
     // security error
-    '/apos-twitter/feed/' + account + '?count=' + (data.limit || 5),
+    '/apos-twitter/feed',
+    {
+      count: (data.limit || 5),
+      username: account,
+      hashtag: hashtag
+    },
     function(tweets) {
       var $tweets = $widget.find('.apos-tweets');
       if (!tweets.length) {
@@ -50,6 +57,7 @@ apos.widgetPlayers.twitter = function($widget) {
         $tweets.append($li);
       });
       $tweets.find('.apos-tweet.apos-template').remove();
+      $widget.trigger('aposTwitterReady');
     }
   );
 

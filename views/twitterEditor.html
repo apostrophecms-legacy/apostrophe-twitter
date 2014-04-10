@@ -9,9 +9,16 @@
 {% endblock %}
 
 {% block instructions %}
-  Type a Twitter account name.
+  <!-- Type a Twitter account name. -->
 {% endblock %}
 
 {% block formBody %}
+<fieldset class="apos-fieldset apos-fieldset-text">
+	<label>Twitter Username</label>
   <input class="apos-twitter-account" />
+</fieldset>
+<fieldset class="apos-fieldset apos-fieldset-text">
+  <label>Filter Tweets by Hashtag</label>
+  <input class="apos-twitter-hashtag" />
+ </fieldset>
 {% endblock %}

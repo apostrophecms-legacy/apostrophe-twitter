@@ -44,4 +44,15 @@ The `limit` option controls the number of tweets to be displayed, at most. The `
 
 By default the profile picture is present but hidden by CSS. You can override this by setting the `apos-tweet-profile-image` class to `display: block` at project level. The background image of that div is the user's profile picture. Keep in mind they are only 48x48.
 
+## aposTwitterReady
+
+Once the tweets have been fully loaded into the template, an event called 'aposTwitterReady' fires. If you are manipulating the tweets on the front-end, you will want to listen for aposTwitterReady, rather than other DOM events. If you don't, the tweets may take a few seconds to load and your wonderful functions will fire before the tweets are accessible. You can then target the twitter widget with a simple declaration.For example:
+
+  $('body').on('aposTwitterReady', '.apos-widget', function() {
+    $widget = $(this);
+
+    $widget.doAwesomeThings();
+
+  });
+
 Enjoy!
