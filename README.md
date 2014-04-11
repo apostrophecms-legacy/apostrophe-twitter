@@ -51,10 +51,8 @@ Once the tweets have been fully loaded into the template, an event called 'aposT
 ```javascript
   $('body').on('aposTwitterReady', '.apos-widget', function() {
     $widget = $(this);
-```
-
     $widget.find('.apos-tweets').makeThemMoreAwesome();
-
   });
+```
 
 Enjoy!
