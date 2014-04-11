@@ -48,10 +48,10 @@ By default the profile picture is present but hidden by CSS. You can override th
 
 Once the tweets have been fully loaded into the template, an event called 'aposTwitterReady' fires. If you are manipulating the tweets on the front-end, you will want to listen for aposTwitterReady, rather than other DOM events. If you don't, the tweets may take a few seconds to load and your wonderful functions will fire before the tweets are accessible. You can then target the twitter widget with a simple declaration.For example:
 
-'''javascript
+```javascript
   $('body').on('aposTwitterReady', '.apos-widget', function() {
     $widget = $(this);
-'''
+```
 
     $widget.find('.apos-tweets').makeThemMoreAwesome();
 
