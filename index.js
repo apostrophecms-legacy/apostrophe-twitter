@@ -12,6 +12,9 @@ module.exports.Construct = Construct;
 function Construct(options, callback) {
   var apos = options.apos;
   var app = options.app;
+  if (!options.consumerKey) {
+    console.error('WARNING: you must configure the consumerKey, consumerSecret, accessToken and accessTokenSecret options to use the Twitter widget.');
+  }
   var consumerKey = options.consumerKey;
   var consumerSecret = options.consumerSecret;
   var accessToken = options.accessToken;
@@ -86,20 +89,19 @@ function Construct(options, callback) {
     });
   });
 
-  apos.itemTypes.twitter = {
-    widget: true,
-    label: 'Twitter',
-    css: 'twitter',
-    icon: 'twitter',
-    jsonOptions: [ 'limit', 'profile' ],
-    sanitize: function(item) {
-      var matches = item.account.match(/\w+/);
-      item.account = matches[0];
-    },
-    render: function(data) {
-      return self.render('twitter', data);
-    }
+  self.widget = true;
+  self.label = 'Twitter';
+  self.css = 'twitter';
+  self.icon = 'twitter';
+  self.jsonOptions = [ 'limit', 'profile' ];
+  self.sanitize = function(item) {
+    var matches = item.account.match(/\w+/);
+    item.account = matches[0];
   };
+  self.renderWidget = function(data) {
+    return self.render('twitter', data);
+  };
+  self._apos.addWidgetType('twitter', self);
 
   return setImmediate(function() { return callback(null); });
 }
