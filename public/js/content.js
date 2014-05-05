@@ -22,6 +22,7 @@ apos.widgetPlayers.twitter = function($widget) {
     function(tweets) {
       var $tweets = $widget.find('.apos-tweets');
       if (!tweets.length) {
+        $widget.trigger('aposTwitterNull');
         return;
       }
       $tweets.find('.apos-tweet:not(.apos-template)').remove();
