@@ -54,5 +54,14 @@ Once the tweets have been fully loaded into the template, an event called 'aposT
     $widget.find('.apos-tweets').makeThemMoreAwesome();
   });
 ```
+## aposTwitterNull
+If no tweets could be found, an event called 'aposTwitterNull' fires. If you want something special to happen if there are no tweets available, this is your event.
+
+```javascript
+  $('body').on('aposTwitterNull', '.apos-widget', function() {
+    $widget = $(this);
+    $widget.find('.apos-tweets').seeYaLaterTemplate();
+  });
+```
 
 Enjoy!
