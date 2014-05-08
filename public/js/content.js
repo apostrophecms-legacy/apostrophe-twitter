@@ -20,15 +20,17 @@ apos.widgetPlayers.twitter = function($widget) {
       hashtag: hashtag
     },
     function(tweets) {
-      var $tweets = $widget.find('.apos-tweets');
+      var $tweets = $widget.find('.apos-tweets, [data-apos-tweets]');
+      console.log($tweets);
+
       if (!tweets.length) {
         $widget.trigger('aposTwitterNull');
         return;
       }
-      $tweets.find('.apos-tweet:not(.apos-template)').remove();
+      $tweets.find('.apos-tweet:not(.apos-template), [data-apos-tweet-place-holer]').remove();
       _.each(tweets, function(tweet) {
         var text = tweet.text;
-        var $li = $tweets.find('.apos-tweet.apos-template').clone();
+        var $li = $tweets.find('.apos-tweet.apos-template, [data-apos-tweet].apos-template').clone();
         var when = parseTwitterDate(tweet.created_at);
         // Months start at zero for use in arrays.
         var month = when.getMonth() + 1;
@@ -40,8 +42,8 @@ apos.widgetPlayers.twitter = function($widget) {
           day = '0' + day;
         }
         when = '<a href="http://twitter.com/' + account + '/status/' + tweet.id_str + '">' + month + '/' + day + '</a>';
-        $profileImage = $li.find('.apos-tweet-profile-image');
-        $date = $li.find('.apos-tweet-date');
+        $profileImage = $li.find('.apos-tweet-profile-image, [data-apos-tweet-profile-image]');
+        $date = $li.find('.apos-tweet-date, [data-apos-tweet-date]');
         $date.append(when);
         var profileImage;
         if (document.location.href.substr(0, 5) === 'https') {
@@ -64,15 +66,15 @@ apos.widgetPlayers.twitter = function($widget) {
             $li.find('[data-apos-tweet-images]').append('<li><img src="'+photoSrc+'" alt="'+photo.display_url+'"></li>');
           });
         };
-        
+
         // Linkify URLs
         text = text.replace(/(https?\:\/\/[^ ]\S+)/g, '<a href="$1">$1</a>');
         // Tweets are pre-escaped for some reason in the JSON responses
-        $li.find('.apos-tweet-text').html(text);
+        $li.find('.apos-tweet-text, [data-apos-tweet-text]').html(text);
         $li.removeClass('apos-template');
         $tweets.append($li);
       });
-      $tweets.find('.apos-tweet.apos-template').remove();
+      $tweets.find('.apos-tweet.apos-template, [data-apos-tweet].apos-template').remove();
       $widget.trigger('aposTwitterReady');
     }
   );
