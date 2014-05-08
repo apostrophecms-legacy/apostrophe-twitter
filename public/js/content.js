@@ -50,6 +50,21 @@ apos.widgetPlayers.twitter = function($widget) {
           profileImage = tweet.user.profile_image_url;
         }
         $profileImage.css('background-image', 'url(' + profileImage + ')');
+
+        // Grabbing any associated images
+        var photos = (tweet.entities.media || []);
+        if (photos.length) {
+          photos.map(function(photo){
+            var photoSrc;
+            if (document.location.href.substr(0, 5) === 'https') {
+              photoSrc = photo.media_url_https;
+            } else {
+              photoSrc = photo.media_url;
+            }
+            $li.find('[data-apos-tweet-images]').append('<li><img src="'+photoSrc+'" alt="'+photo.display_url+'"></li>');
+          });
+        };
+        
         // Linkify URLs
         text = text.replace(/(https?\:\/\/[^ ]\S+)/g, '<a href="$1">$1</a>');
         // Tweets are pre-escaped for some reason in the JSON responses
@@ -69,4 +84,3 @@ apos.widgetPlayers.twitter = function($widget) {
     return new Date(Date.parse(v[1]+" "+v[2]+", "+v[5]+" "+v[3]+" UTC"));
   }
 };
-
