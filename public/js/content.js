@@ -21,7 +21,6 @@ apos.widgetPlayers.twitter = function($widget) {
     },
     function(tweets) {
       var $tweets = $widget.find('.apos-tweets, [data-apos-tweets]');
-      console.log($tweets);
 
       if (!tweets.length) {
         $widget.trigger('aposTwitterNull');
