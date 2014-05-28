@@ -92,7 +92,7 @@ function Construct(options, callback) {
   self.widget = true;
   self.label = 'Twitter';
   self.css = 'twitter';
-  self.icon = 'twitter';
+  self.icon = 'icon-twitter';
   self.jsonOptions = [ 'limit', 'profile' ];
   self.sanitize = function(item) {
     var matches = item.account.match(/\w+/);
