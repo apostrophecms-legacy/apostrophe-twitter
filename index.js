@@ -93,7 +93,6 @@ function Construct(options, callback) {
   self.label = 'Twitter';
   self.css = 'twitter';
   self.icon = 'icon-twitter';
-  self.jsonOptions = [ 'limit', 'profile' ];
   self.sanitize = function(item) {
     var matches = item.account.match(/\w+/);
     item.account = matches[0];
