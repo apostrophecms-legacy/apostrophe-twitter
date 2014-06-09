@@ -23,6 +23,9 @@ function AposTwitterWidgetEditor(options) {
 
     self.$hashtag = self.$el.find('.apos-twitter-hashtag');
     self.$hashtag.val(self.data.hashtag);
+
+    self.$limit = self.$el.find('[data-apos-twitter-limit]');
+    self.$limit.val(self.data.limit);
     setTimeout(function() {
       self.$account.focus();
       self.$account.setSelection(0, 0);
@@ -37,6 +40,7 @@ function AposTwitterWidgetEditor(options) {
     if (self.exists) {
       self.data.account = self.$account.val();
       self.data.hashtag = self.$hashtag.val();
+      self.data.limit = self.$limit.val();
     }
     return callback();
   }
