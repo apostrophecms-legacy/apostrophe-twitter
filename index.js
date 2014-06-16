@@ -51,8 +51,8 @@ function Construct(options, callback) {
   var url;
 
   app.get('/apos-twitter/feed', function(req, res) {
-    var username = req.query.username;
-    var hashtag = req.query.hashtag;
+    var username = apos.sanitizeString(req.query.username);
+    var hashtag = apos.sanitizeString(req.query.hashtag);
 
     if (!username.length) {
       res.statusCode = 404;
