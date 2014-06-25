@@ -1,15 +1,15 @@
 {% extends "baseWidgetEditor.html" %}
 
-{% block widgetVars %}
-  {% set widgetClass = 'apos-twitter-editor' %}
+{% block modalClass %}
+  {{ super() }} apos-twitter-editor
+{% endblock%}
+
+{% block modalLabel %}
+  {{ __('Select Twitter Feed') }}
 {% endblock %}
 
-{% block title %}
-  Select Twitter Feed
-{% endblock %}
-
-{% block instructions %}
-  <!-- Type a Twitter account name. -->
+{% block modalInstructions %}
+  <p>{{ __('Add a username and then filter tweets within that account by hashtag, if desired.') }}</p>
 {% endblock %}
 
 {% block formBody %}
