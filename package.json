@@ -1,6 +1,6 @@
 {
   "name": "apostrophe-twitter",
-  "version": "0.5.17",
+  "version": "0.5.18",
   "description": "Adds a Twitter feed widget to Apostrophe's rich content editor",
   "main": "index.js",
   "scripts": {
