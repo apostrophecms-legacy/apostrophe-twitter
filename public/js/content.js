@@ -40,10 +40,14 @@ apos.widgetPlayers.twitter = function($widget) {
         if (day < 10) {
           day = '0' + day;
         }
-        when = '<a href="http://twitter.com/' + account + '/status/' + tweet.id_str + '">' + month + '/' + day + '</a>';
+        var url = "http://twitter.com/" + account + "/status/" + tweet.id_str;
+        when = '<a href="'+ url+ '">' + month + '/' + day + '</a>';
         $profileImage = $li.find('.apos-tweet-profile-image, [data-apos-tweet-profile-image]');
         $date = $li.find('.apos-tweet-date, [data-apos-tweet-date]');
         $date.append(when);
+
+        var $link = $li.find('[data-apos-tweet-link]');
+        $link.attr('href', url);
         var profileImage;
         if (document.location.href.substr(0, 5) === 'https') {
           profileImage = tweet.user.profile_image_url_https;
