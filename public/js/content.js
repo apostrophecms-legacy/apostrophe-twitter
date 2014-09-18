@@ -28,7 +28,6 @@ apos.widgetPlayers.twitter = function($widget) {
       }
       $tweets.find('.apos-tweet:not(.apos-template), [data-apos-tweet-place-holer]').remove();
       _.each(tweets, function(tweet) {
-        console.log(tweet);
         var text = tweet.text;
         var $li = $tweets.find('.apos-tweet.apos-template, [data-apos-tweet].apos-template').clone();
 
