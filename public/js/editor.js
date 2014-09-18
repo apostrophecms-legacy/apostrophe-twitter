@@ -6,9 +6,9 @@ function AposTwitterWidgetEditor(options) {
   if (!options.messages) {
     options.messages = {};
   }
-  if (!options.messages.missing) {
-    options.messages.missing = 'Type in a Twitter account name first.';
-  }
+  // if (!options.messages.missing) {
+  //   options.messages.missing = 'Type in a Twitter account name first.';
+  // }
 
   self.type = 'twitter';
   options.template = '.apos-twitter-editor';
@@ -36,7 +36,7 @@ function AposTwitterWidgetEditor(options) {
   self.preSave = getAccount;
 
   function getAccount(callback) {
-    self.exists = !!self.$account.val();
+    self.exists = (!!self.$account.val()) || (!!self.$hashtag.val());
     if (self.exists) {
       self.data.account = self.$account.val();
       self.data.hashtag = self.$hashtag.val();

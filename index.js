@@ -51,18 +51,26 @@ function Construct(options, callback) {
   var url;
 
   app.get('/apos-twitter/feed', function(req, res) {
-    var username = apos.sanitizeString(req.query.username);
-    var hashtag = apos.sanitizeString(req.query.hashtag);
+    var username,
+        hashtag;
+    if (req.query.username) {
+      username = apos.sanitizeString(req.query.username);
+    }
+    if (req.query.hashtag){
+      hashtag = apos.sanitizeString(req.query.hashtag);
+    }
 
-    if (!username.length) {
+    if (username && !username.length) {
       res.statusCode = 404;
       return res.send('not found');
     }
 
-    if (!hashtag.length) {
+    if (username && !hashtag) {
       url = 'statuses/user_timeline.json?' + qs.stringify({ screen_name: username, count: req.query.count || 5 });
-    } else {
+    } else if (username && hashtag) {
       url = 'search/tweets.json?' + qs.stringify({ q: 'from:' + username + ' #' + hashtag, count: req.query.count || 5 });
+    } else if (hashtag && !username) {
+      url = 'search/tweets.json?' + qs.stringify({ q: ' #' + hashtag, count: req.query.count || 5 });
     }
 
     if (_.has(tweetCache, url)) {
@@ -94,8 +102,10 @@ function Construct(options, callback) {
   self.css = 'twitter';
   self.icon = 'icon-twitter';
   self.sanitize = function(item) {
-    var matches = item.account.match(/\w+/);
-    item.account = matches[0];
+    if (item.account) {
+      var matches = item.account.match(/\w+/);
+      item.account = matches[0];
+    }
   };
   self.renderWidget = function(data) {
     return self.render('twitter', data);

@@ -28,8 +28,18 @@ apos.widgetPlayers.twitter = function($widget) {
       }
       $tweets.find('.apos-tweet:not(.apos-template), [data-apos-tweet-place-holer]').remove();
       _.each(tweets, function(tweet) {
+        console.log(tweet);
         var text = tweet.text;
         var $li = $tweets.find('.apos-tweet.apos-template, [data-apos-tweet].apos-template').clone();
+
+        var username = tweet.user.screen_name;
+        var $username = $li.find('[data-apos-tweet-username]');
+        $username.text("@"+username);
+
+        var profileUrl = "http://twitter.com/"+ username;
+        var $profileLink = $li.find('[data-apos-tweet-profile-link]');
+        $profileLink.attr('href', profileUrl);
+
         var when = parseTwitterDate(tweet.created_at);
         // Months start at zero for use in arrays.
         var month = when.getMonth() + 1;
@@ -71,8 +81,9 @@ apos.widgetPlayers.twitter = function($widget) {
         };
 
         // Linkify URLs
-        text = text.replace(/(https?\:\/\/[^ ]\S+)/g, '<a href="$1">$1</a>');
+        text = text.replace(/(https?\:\/\/[^ ]\S+)/g, '<a href="$1" target="blank">$1</a>');
         // Tweets are pre-escaped for some reason in the JSON responses
+        text = text.replace(/(^|[^@\w])@(\w{1,15})\b/g, '$1<a href="http://twitter.com/$2" target="blank">@$2</a>');
         $li.find('.apos-tweet-text, [data-apos-tweet-text]').html(text);
         $li.removeClass('apos-template');
         $tweets.append($li);
