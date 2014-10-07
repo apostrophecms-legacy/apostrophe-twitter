@@ -80,7 +80,10 @@ apos.widgetPlayers.twitter = function($widget) {
         };
 
         // Linkify URLs
-        text = text.replace(/(https?\:\/\/[^ ]\S+)/g, '<a href="$1" target="blank">$1</a>');
+        text = text.replace(/https?\:\/\/\S+/g, function(url) {
+          var urlSansPeriod = url.replace(/\.$/, '');
+          return '<a href="' + urlSansPeriod + '" target="blank">' + url + '</a>';
+        });
         // Tweets are pre-escaped for some reason in the JSON responses
         text = text.replace(/(^|[^@\w])@(\w{1,15})\b/g, '$1<a href="http://twitter.com/$2" target="blank">@$2</a>');
         $li.find('.apos-tweet-text, [data-apos-tweet-text]').html(text);
