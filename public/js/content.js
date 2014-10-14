@@ -1,18 +1,9 @@
-// TODO: a separate JS file for this since it's needed at all times
-// and the editor is not (see editor.js vs. content.js). Letting people
-// edit tends to sneak into sites so much that we might not bother
-// with the distinction much in practice
-
 apos.widgetPlayers.twitter = function($widget) {
   var data = apos.getWidgetData($widget);
   var account = data.account;
   var hashtag = data.hashtag;
 
   $.getJSON(
-    // Note the trailing ? is significant. It tells jQuery to automatically
-    // create a JSONP callback function and obtain the result via a cross-domain
-    // script tag so we can talk to twitter in older browsers without a
-    // security error
     '/apos-twitter/feed',
     {
       count: (data.limit || 5),
@@ -77,7 +68,7 @@ apos.widgetPlayers.twitter = function($widget) {
             }
             $li.find('[data-apos-tweet-images]').append('<li><img src="'+photoSrc+'" alt="'+photo.display_url+'"></li>');
           });
-        };
+        }
 
         // Linkify URLs
         text = text.replace(/https?\:\/\/\S+/g, function(url) {
