@@ -1,15 +1,15 @@
 var extend = require('extend');
-var twitter = require('simple-twitter');
+var Twitter = require('simple-twitter');
 var _ = require('lodash');
 var qs = require('qs');
 
-module.exports = function(options, callback) {
+module.exports = function (options, callback) {
   return new Construct(options, callback);
 };
 
 module.exports.Construct = Construct;
 
-function Construct(options, callback) {
+function Construct (options, callback) {
   var apos = options.apos;
   var app = options.app;
   if (!options.consumerKey) {
@@ -50,13 +50,13 @@ function Construct(options, callback) {
   var tweetCache = {};
   var url;
 
-  app.get('/apos-twitter/feed', function(req, res) {
-    var username,
-        hashtag;
+  app.get('/apos-twitter/feed', function (req, res) {
+    var username;
+    var hashtag;
     if (req.query.username) {
       username = apos.sanitizeString(req.query.username);
     }
-    if (req.query.hashtag){
+    if (req.query.hashtag) {
       hashtag = apos.sanitizeString(req.query.hashtag);
     }
 
@@ -82,9 +82,9 @@ function Construct(options, callback) {
         return res.send(cache.results);
       }
     }
-    var reader = new twitter(consumerKey, consumerSecret, accessToken, accessTokenSecret);
+    var reader = new Twitter(consumerKey, consumerSecret, accessToken, accessTokenSecret);
 
-    return reader.get(url, function(err, results) {
+    return reader.get(url, function (err, results) {
       if (err) {
         results = '[]';
       }
@@ -101,16 +101,16 @@ function Construct(options, callback) {
   self.label = 'Twitter';
   self.css = 'twitter';
   self.icon = 'icon-twitter';
-  self.sanitize = function(item) {
+  self.sanitize = function (item) {
     if (item.account) {
       var matches = item.account.match(/\w+/);
       item.account = matches[0];
     }
   };
-  self.renderWidget = function(data) {
+  self.renderWidget = function (data) {
     return self.render('twitter', data);
   };
   self._apos.addWidgetType('twitter', self);
 
-  return setImmediate(function() { return callback(null); });
+  return setImmediate(function () { return callback(null); });
 }

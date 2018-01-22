@@ -1,4 +1,5 @@
-apos.widgetPlayers.twitter = function($widget) {
+/* global _ $ apos */
+apos.widgetPlayers.twitter = function ($widget) {
   var data = apos.getWidgetData($widget);
   var account = data.account;
   var hashtag = data.hashtag;
@@ -10,7 +11,7 @@ apos.widgetPlayers.twitter = function($widget) {
       username: account,
       hashtag: hashtag
     },
-    function(tweets) {
+    function (tweets) {
       var $tweets = $widget.find('.apos-tweets, [data-apos-tweets]');
 
       if (!tweets.length) {
@@ -18,15 +19,15 @@ apos.widgetPlayers.twitter = function($widget) {
         return;
       }
       $tweets.find('.apos-tweet:not(.apos-template), [data-apos-tweet-place-holer]').remove();
-      _.each(tweets, function(tweet) {
+      _.each(tweets, function (tweet) {
         var text = tweet.text || tweet.full_text;
         var $li = $tweets.find('.apos-tweet.apos-template, [data-apos-tweet].apos-template').clone();
 
         var username = tweet.user.screen_name;
         var $username = $li.find('[data-apos-tweet-username]');
-        $username.text("@"+username);
+        $username.text('@' + username);
 
-        var profileUrl = "http://twitter.com/"+ username;
+        var profileUrl = 'http://twitter.com/' + username;
         var $profileLink = $li.find('[data-apos-tweet-profile-link]');
         $profileLink.attr('href', profileUrl);
 
@@ -40,10 +41,10 @@ apos.widgetPlayers.twitter = function($widget) {
         if (day < 10) {
           day = '0' + day;
         }
-        var url = "http://twitter.com/" + account + "/status/" + tweet.id_str;
-        when = '<a href="'+ url+ '">' + month + '/' + day + '</a>';
-        $profileImage = $li.find('.apos-tweet-profile-image, [data-apos-tweet-profile-image]');
-        $date = $li.find('.apos-tweet-date, [data-apos-tweet-date]');
+        var url = 'http://twitter.com/' + account + '/status/' + tweet.id_str;
+        when = '<a href="' + url + '">' + month + '/' + day + '</a>';
+        var $profileImage = $li.find('.apos-tweet-profile-image, [data-apos-tweet-profile-image]');
+        var $date = $li.find('.apos-tweet-date, [data-apos-tweet-date]');
         $date.append(when);
 
         var $link = $li.find('[data-apos-tweet-link]');
@@ -59,19 +60,19 @@ apos.widgetPlayers.twitter = function($widget) {
         // Grabbing any associated images
         var photos = (tweet.entities.media || []);
         if (photos.length) {
-          photos.map(function(photo){
+          photos.map(function (photo) {
             var photoSrc;
             if (document.location.href.substr(0, 5) === 'https') {
               photoSrc = photo.media_url_https;
             } else {
               photoSrc = photo.media_url;
             }
-            $li.find('[data-apos-tweet-images]').append('<li><img src="'+photoSrc+'" alt="'+photo.display_url+'"></li>');
+            $li.find('[data-apos-tweet-images]').append('<li><img src="' + photoSrc + '" alt="' + photo.display_url + '"></li>');
           });
         }
 
         // Linkify URLs
-        text = text.replace(/https?\:\/\/\S+/g, function(url) {
+        text = text.replace(/https?\:\/\/\S+/g, function (url) {
           var urlSansPeriod = url.replace(/\.$/, '');
           return '<a href="' + urlSansPeriod + '" target="blank">' + url + '</a>';
         });
@@ -88,8 +89,8 @@ apos.widgetPlayers.twitter = function($widget) {
 
   // Per http://stackoverflow.com/questions/3243546/problem-with-javascript-date-function-in-ie-7-returns-nan
   // Without this IE bombs
-  function parseTwitterDate(str) {
+  function parseTwitterDate (str) {
     var v = str.split(' ');
-    return new Date(Date.parse(v[1]+" "+v[2]+", "+v[5]+" "+v[3]+" UTC"));
+    return new Date(Date.parse(v[1] + ' ' + v[2] + ', ' + v[5] + ' ' + v[3] + ' UTC'));
   }
 };
