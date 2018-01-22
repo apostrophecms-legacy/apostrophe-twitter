@@ -66,11 +66,11 @@ function Construct(options, callback) {
     }
 
     if (username && !hashtag) {
-      url = 'statuses/user_timeline.json?' + qs.stringify({ screen_name: username, count: req.query.count || 5 });
+      url = 'statuses/user_timeline.json?' + qs.stringify({ screen_name: username, tweet_mode: 'extended', count: req.query.count || 5 });
     } else if (username && hashtag) {
-      url = 'search/tweets.json?' + qs.stringify({ q: 'from:' + username + ' #' + hashtag, count: req.query.count || 5 });
+      url = 'search/tweets.json?' + qs.stringify({ q: 'from:' + username + ' #' + hashtag, tweet_mode: 'extended', count: req.query.count || 5 });
     } else if (hashtag && !username) {
-      url = 'search/tweets.json?' + qs.stringify({ q: ' #' + hashtag, count: req.query.count || 5 });
+      url = 'search/tweets.json?' + qs.stringify({ q: ' #' + hashtag, tweet_mode: 'extended', count: req.query.count || 5 });
     }
 
     if (_.has(tweetCache, url)) {

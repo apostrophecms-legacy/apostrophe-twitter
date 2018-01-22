@@ -19,7 +19,7 @@ apos.widgetPlayers.twitter = function($widget) {
       }
       $tweets.find('.apos-tweet:not(.apos-template), [data-apos-tweet-place-holer]').remove();
       _.each(tweets, function(tweet) {
-        var text = tweet.text;
+        var text = tweet.text || tweet.full_text;
         var $li = $tweets.find('.apos-tweet.apos-template, [data-apos-tweet].apos-template').clone();
 
         var username = tweet.user.screen_name;
