@@ -1,6 +1,6 @@
 {
   "name": "apostrophe-twitter",
-  "version": "0.5.24",
+  "version": "0.5.25",
   "description": "Adds a Twitter feed widget to Apostrophe's rich content editor",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/punkave/apostrophe-twitter.git"
+    "url": "git://github.com/apostrophecms-legacy/apostrophe-twitter.git"
   },
   "keywords": [
     "apostrophe",
