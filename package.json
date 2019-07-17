@@ -1,6 +1,6 @@
 {
   "name": "apostrophe-twitter",
-  "version": "0.5.25",
+  "version": "0.5.26",
   "description": "Adds a Twitter feed widget to Apostrophe's rich content editor",
   "main": "index.js",
   "scripts": {
@@ -13,18 +13,13 @@
   "keywords": [
     "apostrophe",
     "jot",
-    "rich",
-    "text",
-    "rich",
-    "content",
     "twitter"
   ],
   "author": "P'unk Avenue punkave.com",
   "license": "MIT",
   "dependencies": {
-    "extend": "~1.1.3",
-    "lodash": "2.4.x",
-    "simple-twitter": "~1.0.3",
-    "qs": "~0.6.5"
+    "lodash": "^4.17.14",
+    "qs": "~0.6.5",
+    "simple-twitter": "~1.0.3"
   }
 }
