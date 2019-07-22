@@ -1,4 +1,3 @@
-var extend = require('extend');
 var Twitter = require('simple-twitter');
 var _ = require('lodash');
 var qs = require('qs');
