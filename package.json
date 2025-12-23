@@ -19,7 +19,7 @@
   "license": "MIT",
   "dependencies": {
     "lodash": "^4.17.14",
-    "qs": "^1.2.2",
+    "qs": "^6.9.3",
     "simple-twitter": "~1.0.3"
   }
 }
